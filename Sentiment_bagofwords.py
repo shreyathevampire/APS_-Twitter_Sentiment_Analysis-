@@ -104,7 +104,8 @@ bagofwords = bOW.fit_transform(combine['cleanedText'])
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import confusion_matrix, classification_report,f1_score
-
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC
 #apply algorithms
 
 train_bow = bagofwords[:31962, :]
@@ -122,5 +123,20 @@ print(classification_report(ytest, y_pred))
 print(confusion_matrix(ytest, y_pred))
 
 
+neigh = KNeighborsClassifier(n_neighbors = 2)
+neigh.fit(X_train, y_train)
 
+y_pred = neigh.predict(X_test)
+print("KNN using BOW",f1_score(ytest,y_pred))
+print(classification_report(ytest, y_pred))
+print(confusion_matrix(ytest, y_pred))
+
+
+svc = SVC()
+svc.fit(X_train, y_train)
+
+y_pred = svc.predict(X_test)
+print("SVC using BOW",f1_score(ytest,y_pred))
+print(classification_report(ytest, y_pred))
+print(confusion_matrix(ytest, y_pred))
 
