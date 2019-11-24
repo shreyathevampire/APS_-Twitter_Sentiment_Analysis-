@@ -112,7 +112,8 @@ tfidf = termidf.fit_transform(combine['cleanedText'])
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import confusion_matrix, classification_report,f1_score
-
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC
 #apply algorithms
 
 
@@ -132,3 +133,19 @@ print(classification_report(ytest1, y_pred1))
 print(confusion_matrix(ytest1, y_pred1))
 
 
+neigh = KNeighborsClassifier(n_neighbors = 2)
+neigh.fit(X_train1, y_train1)
+
+y_pred = neigh.predict(X_test1)
+print("KNN using BOW",f1_score(ytest1,y_pred))
+print(classification_report(ytest1, y_pred))
+print(confusion_matrix(ytest1, y_pred))
+
+
+svc = SVC()
+svc.fit(X_train1, y_train1)
+
+y_pred = svc.predict(X_test1)
+print("SVC using BOW",f1_score(ytest1,y_pred))
+print(classification_report(ytest1, y_pred))
+print(confusion_matrix(ytest1, y_pred))
